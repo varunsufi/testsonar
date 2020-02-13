@@ -1,0 +1,72 @@
+---
+format_version: 2
+
+environments:
+  test:
+    pipelines:
+      - skeleton-2-ci
+      - skeleton-stage
+      - skeleton-0.23.x-ci
+      - skeleton-patch-stage
+  prod:
+    pipelines:
+      - skeleton-prod
+      - skeleton-patch-prod
+
+pipelines:
+  skeleton-2-ci:
+    group: common-services
+    label_template: "2.${COUNT}.0"
+    lock_behavior: lockOnFailure
+    materials:
+      common-services-skeleton.git:
+        git: git@github.com:atgse/common-services-skeleton.git
+        blacklist:
+          - "*.gocd.yaml"
+          - "README.md"
+    parameters:
+      APP_NAME: common-services-skeleton
+      # Name/Path of the submodule containing the application jar (use . for no submodule)
+      # Dummy comment
+      APP_MODULE: .
+    environment_variables:
+      OCP_TEMPLATE: springboot-keystore-truststore-template
+      OCP_INTERNAL_REGISTRY: docker-registry-default.ocptest.hh.atg.se/gocd-ci
+    template: maven-openshift-ci
+
+  skeleton-stage:
+    group: common-services
+    materials:
+      upstream:
+        pipeline: skeleton-2-ci
+        stage: release
+    label_template: ${upstream}
+    parameters:
+      APP_NAME: common-services-skeleton
+      OCP_PROJECT: stage-common-services-skeleton
+    environment_variables:
+      OCP_TEMPLATE: springboot-keystore-truststore-template
+      OCP_INTERNAL_REGISTRY: docker-registry-default.ocptest.hh.atg.se/gocd-ci
+      LIMITS_CPU: 500m
+      LIMITS_MEM: 1000M
+      REQUESTS_CPU: 100m
+      REQUESTS_MEM: 600M
+    template: openshift-deploy-manual
+
+  skeleton-prod:
+    group: common-services
+    materials:
+      upstream:
+        pipeline: skeleton-stage
+        stage: deploy
+    label_template: ${upstream}
+    parameters:
+      APP_NAME: common-services-skeleton
+      OCP_PROJECT: common-services-skeleton
+    environment_variables:
+      OCP_TEMPLATE: springboot-keystore-truststore-template
+      LIMITS_CPU: 500m
+      LIMITS_MEM: 1000M
+      REQUESTS_CPU: 100m
+      REQUESTS_MEM: 600M
+    template: openshift-deploy-prod

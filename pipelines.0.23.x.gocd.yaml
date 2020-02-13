@@ -1,0 +1,43 @@
+format_version: 2
+
+pipelines: 
+  skeleton-0.23.x-ci:
+    group: common-services
+    label_template: "0.23.${COUNT}"
+    lock_behavior: lockOnFailure
+    materials:
+      common-services-skeleton.git:
+        git: git@github.com:atgse/common-services-skeleton.git
+        branch: v0.23.x
+        blacklist:
+          - "*.gocd.yaml"
+          - "README.md"
+    parameters:
+      APP_NAME: common-services-skeleton
+      # Name/Path of the submodule containing the application jar (use . for no submodule)
+      APP_MODULE: . 
+    template: maven-openshift-ci
+
+  skeleton-patch-stage:
+    group: common-services
+    materials:
+      upstream:
+        pipeline: skeleton-0.23.x-ci
+        stage: release
+    label_template: ${upstream}
+    parameters:
+      APP_NAME: common-services-skeleton
+      OCP_PROJECT: stage-common-services-skeleton
+    template: openshift-deploy-manual
+
+  skeleton-patch-prod:
+    group: common-services
+    materials:
+      upstream:
+        pipeline: skeleton-patch-stage
+        stage: deploy
+    label_template: ${upstream}
+    parameters:
+      APP_NAME: common-services-skeleton
+      OCP_PROJECT: common-services-skeleton
+    template: openshift-deploy-prod

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.1.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>se.atg.common-services</groupId>
+	<artifactId>common-services-skeleton</artifactId>
+	<version>${revision}</version>
+	<packaging>jar</packaging>
+
+	<name>Common Services Skeleton</name>
+	<description>Walking skeleton for GoCD OpenShift pipelines</description>
+
+	<properties>
+		<revision>0.0.1-SNAPSHOT</revision>
+		<jackson.version>2.10.0</jackson.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+		<spring.boot.version>2.2.1.RELEASE</spring.boot.version>
+		<jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
+		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+			  <groupId>org.springframework.cloud</groupId>
+			  <artifactId>spring-cloud-dependencies</artifactId>
+			  <version>${spring-cloud.version}</version>
+			  <type>pom</type>
+			  <scope>import</scope>
+			</dependency>
+			<dependency>
+			  <groupId>com.fasterxml.jackson.core</groupId>
+			  <artifactId>jackson-databind</artifactId>
+			  <version>${jackson.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<profiles>
+		<profile>
+			<id>sonar-coverage</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${jacoco-maven-plugin.version}</version>
+						<configuration>
+							<destFile>${sonar.jacoco.reportPath}</destFile>
+							<append>true</append>
+						</configuration>
+						<executions>
+							<execution>
+								<id>agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>local-dev</id>
+			<build>
+				<plugins>
+					<plugin>
+					<groupId>org.owasp</groupId>
+					<artifactId>dependency-check-maven</artifactId>
+					<configuration>
+						<outputDirectory>target</outputDirectory>
+					</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+		        <groupId>org.springframework.cloud</groupId>
+		        <artifactId>spring-cloud-starter-vault-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.owasp</groupId>
+					<artifactId>dependency-check-maven</artifactId>
+					<configuration>
+						<outputDirectory>/drone/src/.reports/dependency-check</outputDirectory>
+						<suppressionFile>suppressions.xml</suppressionFile>
+						<cveValidForHours>24</cveValidForHours>
+						<centralAnalyzerEnabled>false</centralAnalyzerEnabled>
+						<formats>XML,HTML</formats>
+						<assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+						<cveUrlBase>https://nexus.hh.atg.se/repository/raw-cve/feeds/json/cve/1.0/nvdcve-1.0-%d.json.gz</cveUrlBase>
+						<cveUrlModified>https://nexus.hh.atg.se/repository/raw-cve/feeds/json/cve/1.0/nvdcve-1.0-modified.json.gz</cveUrlModified>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
+

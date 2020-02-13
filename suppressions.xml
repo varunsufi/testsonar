@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.2.xsd">
+    <suppress>
+        <notes>Vault issues</notes>
+        <cve>CVE-2011-2730</cve>
+        <cve>CVE-2013-4152</cve>
+        <cve>CVE-2013-7315</cve>
+        <cve>CVE-2014-0054</cve>
+    </suppress>
+    <suppress>
+        <notes>Really a Prometheus server issue.</notes>
+        <cpe>cpe:/a:prometheus:prometheus</cpe>
+    </suppress>
+    <suppress>
+        <notes>Spring security in combination with spring 5.0.5</notes>
+        <cve>CVE-2018-1258</cve>
+    </suppress>
+    <suppress>
+        <notes>Spring boot/cloud is not spring framework</notes>
+        <filePath regex="true">.*spring-(boot|cloud|data-jpa|data-commons|plugin-core|plugin-metadata).*.jar</filePath>
+        <cpe>cpe:/a:springsource:spring_framework</cpe>
+        <cpe>cpe:/a:pivotal_software:spring_security</cpe>
+        <cpe>cpe:/a:pivotal_software:spring_framework</cpe>
+        <cpe>cpe:/a:pivotal_software:spring_boot</cpe>
+        <cpe>cpe:/a:vmware:springsource_spring_framework</cpe>
+    </suppress>
+</suppressions>
