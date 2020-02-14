@@ -5,6 +5,14 @@
         <!--make the profile active all the time -->
         <activeProfile>nexus</activeProfile>
     </activeProfiles>
+    <mirrors>
+        <mirror>
+            <id>nexus</id>
+            <name>ATG</name>
+            <url>https://nexus.hh.atg.se/repository/maven-public/</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+    </mirrors>
     <servers>
         <server>
             <id>atg-releases</id>
