@@ -1,7 +1,0 @@
-organization=nayakmahesh
-projectKey=nayakmahesh_testsonar
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.4619
-dashboardUrl=https://sonarcloud.io/dashboard?id=nayakmahesh_testsonar
-ceTaskId=AXBC9oVLABAdSnMQ7zBc
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AXBC9oVLABAdSnMQ7zBc

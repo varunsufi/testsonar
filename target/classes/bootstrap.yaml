@@ -1,4 +1,0 @@
----
-spring.application.name: common-services-skeleton
-logging.level.org.springframework: info
-spring.cloud.vault.enabled: false
