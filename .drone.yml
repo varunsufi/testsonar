@@ -7,14 +7,6 @@ platform:
   arch: amd64
 
 steps:
-- name: dependency-check
-  image: maven
-  commands:
-  - mvn clean org.owasp:dependency-check-maven:5.2.2:aggregate -DcveValidForHours=24 -DcentralAnalyzerEnabled=false $([ -f suppressions.xml ] && echo "-DfailBuildOnAnyVulnerability=true -DsuppressionFiles=suppressions.xml") --gs settings.xml
-  - ls /drone/src/.reports/dependency-check
-  environment:
-    MAVEN_OPTS: -Xmx2048m
-
 - name: build-maven
   image: maven
   commands:
@@ -29,6 +21,8 @@ steps:
   - mvn sonar:sonar
   environment:
     MAVEN_OPTS: -Xmx512m
+  depends_on:
+  - build-maven
 
 trigger:
   event:
