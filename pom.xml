@@ -28,6 +28,11 @@
 		<spring.boot.version>2.2.1.RELEASE</spring.boot.version>
 		<jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
 		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
+                  <sonar.projectKey>nayakmahesh_testsonar</sonar.projectKey>
+  <sonar.organization>nayakmahesh</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+  <sonar.login>bbe273a9a350e3a995369494d7ac1f0883a038bf</sonar.login>
+
 	</properties>
 
 	<dependencyManagement>

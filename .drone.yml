@@ -1,0 +1,98 @@
+---
+kind: pipeline
+name: pr-testsonar
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: dependency-check
+  image: nexus.hh.atg.se:17000/maven:3.6.2-jdk-11
+  commands:
+  - mvn clean org.owasp:dependency-check-maven:5.2.2:aggregate -DcveValidForHours=24 -DcentralAnalyzerEnabled=false $([ -f suppressions.xml ] && echo "-DfailBuildOnAnyVulnerability=true -DsuppressionFiles=suppressions.xml") --gs settings.xml
+  - ls /drone/src/.reports/dependency-check
+  environment:
+    MAVEN_OPTS: -Xmx2048m
+    MAVEN_PASSWORD:
+      from_secret: maven_password
+    MAVEN_USERNAME:
+      from_secret: maven_username
+
+- name: build-maven
+  image: nexus.hh.atg.se:17000/maven:3.6.2-jdk-11
+  commands:
+  - mkdir -p build-artifacts
+  - mvn clean install --gs settings.xml
+  - cp target/common-services-skeleton-*.jar build-artifacts
+  - ls build-artifacts
+
+- name: sonar
+  image: nexus.hh.atg.se:17000/maven:3.6.2-jdk-11
+  commands:
+  - mvn sonar:sonar
+  environment:
+    MAVEN_OPTS: -Xmx512m
+    MAVEN_PASSWORD:
+      from_secret: maven_password
+    MAVEN_USERNAME:
+      from_secret: maven_username
+  depends_on:
+  - dependency-check
+  - build-maven
+
+trigger:
+  event:
+  - push
+  ref:
+  - refs/heads/testsonar
+
+---
+kind: secret
+name: maven_username
+
+get:
+  path: prod/maven
+  name: username
+
+---
+kind: secret
+name: maven_password
+
+get:
+  path: prod/maven
+  name: password
+
+---
+kind: secret
+name: sonar_token
+
+get:
+  path: prod/sonar
+  name: token
+
+---
+kind: secret
+name: sonar_github_token
+
+get:
+  path: prod/sonar
+  name: github_token
+
+---
+kind: secret
+name: nexus_username
+
+get:
+  path: push/nexus
+  name: username
+
+---
+kind: secret
+name: nexus_password
+
+get:
+  path: push/nexus
+  name: password
+
+...

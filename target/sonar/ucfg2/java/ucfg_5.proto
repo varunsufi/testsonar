@@ -1,0 +1,25 @@
+
+Bse.atg.skeleton.rest.PongController#getVersion()Ljava/lang/String;_
+U/home/mahesh/gitrepo/testsonar/src/main/java/se/atg/skeleton/rest/PongController.java* *("1*
+1_
+U/home/mahesh/gitrepo/testsonar/src/main/java/se/atg/skeleton/rest/PongController.java+ +(ÞÛ
+_
+U/home/mahesh/gitrepo/testsonar/src/main/java/se/atg/skeleton/rest/PongController.java+ +(
+%0java.lang.Class",java.lang.Object#getClass()Ljava/lang/Class;*'%
+#se.atg.skeleton.rest.PongController2
+getClass()ÕÒ
+_
+U/home/mahesh/gitrepo/testsonar/src/main/java/se/atg/skeleton/rest/PongController.java+ +(&
+%1java.lang.Package"/java.lang.Class#getPackage()Ljava/lang/Package;*
+
+%0java.lang.Class2getPackage()óð
+_
+U/home/mahesh/gitrepo/testsonar/src/main/java/se/atg/skeleton/rest/PongController.java+ +(A
+%2java.lang.String">java.lang.Package#getImplementationVersion()Ljava/lang/String;*
+
+%1java.lang.Package2getImplementationVersion()"{
+_
+U/home/mahesh/gitrepo/testsonar/src/main/java/se/atg/skeleton/rest/PongController.java+ +(B
+
+%2java.lang.StringB'%
+#se.atg.skeleton.rest.PongController
