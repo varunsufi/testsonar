@@ -143,8 +143,8 @@
 						<centralAnalyzerEnabled>false</centralAnalyzerEnabled>
 						<formats>XML,HTML</formats>
 						<assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
-						<cveUrlBase>https://nexus.hh.atg.se/repository/raw-cve/feeds/json/cve/1.0/nvdcve-1.0-%d.json.gz</cveUrlBase>
-						<cveUrlModified>https://nexus.hh.atg.se/repository/raw-cve/feeds/json/cve/1.0/nvdcve-1.0-modified.json.gz</cveUrlModified>
+						<!-- cveUrlBase>https://nexus.hh.atg.se/repository/raw-cve/feeds/json/cve/1.0/nvdcve-1.0-%d.json.gz</cveUrlBase -->
+						<!-- cveUrlModified>https://nexus.hh.atg.se/repository/raw-cve/feeds/json/cve/1.0/nvdcve-1.0-modified.json.gz</cveUrlModified -->
 					</configuration>
 				</plugin>
 			</plugins>
