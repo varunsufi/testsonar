@@ -43,4 +43,5 @@ When running Dependency-check locally you can use the profile **local-dev** as f
 This application is deployed in Openshift for ci -> production environments and using the GoCD Templates for Springboot Services. These pipelines in GoCD are found [here](https://go.hh.atg.se/go/pipelines#!/skeleton) Documentation can be found at [Developer Handbook](https://developer.atg.se/continuous_delivery/gocd.html)
 
 ###### Drone pipeline
-Pipeline is generated from Starlark scripting in **.drone.star**, entirely. All parameters and values necessary for the pipeline should be handled in that file and the yaml generated from `drone starlark convert --stdout > .drone.yml`. When committing the changes, commit both the **.drone.star** and  **.drone.yml**.
+Pipeline is generated from Starlark scripting in **.drone.star**, entirely. All parameters and values necessary for the pipeline should be handled in that file and the yaml generated from `drone starlark convert --stdout > .drone.yml`. When committing the changes, commit both the **.drone.star** and  **.drone.yml**
+
