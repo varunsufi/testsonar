@@ -7,14 +7,6 @@ platform:
   arch: amd64
 
 steps:
-- name: build-maven
-  image: maven
-  commands:
-  - mkdir -p build-artifacts
-  - mvn clean install --gs settings.xml
-  - cp target/common-services-skeleton-*.jar build-artifacts
-  - ls build-artifacts
-
 - name: sonar
   image: maven
   commands:

@@ -1,0 +1,13 @@
+spring.cloud.vault:
+  enabled: false
+  generic:
+    enabled: false
+  host: ${vault.host:localhost}
+  port: ${vault.port:8200}
+  scheme: https
+  authentication: KUBERNETES
+  kubernetes:
+    role: common-services-skeleton
+    service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
+  config:
+    order: 10
