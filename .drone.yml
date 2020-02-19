@@ -13,8 +13,6 @@ steps:
   - mvn sonar:sonar
   environment:
     MAVEN_OPTS: -Xmx512m
-  depends_on:
-  - build-maven
 
 trigger:
   event:
