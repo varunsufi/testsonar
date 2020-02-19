@@ -16,9 +16,7 @@ steps:
 
 trigger:
   event:
-  - push
-  ref:
-  - refs/heads/testsonar
+  - pull_request
 
 ---
 kind: secret
